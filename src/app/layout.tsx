@@ -1,10 +1,9 @@
-import type { Metadata } from "next";
-
-import "./globals.css";
+import type { Metadata } from 'next';
+import './globals.css';
 
 export const metadata: Metadata = {
-  title: "xjm and xb",
-  description: "Real-time mutual fund estimation based on market movement",
+  title: '基金实时估值',
+  description: '基于东方财富网数据的基金实时估值系统',
 };
 
 export default function RootLayout({
@@ -14,7 +13,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="zh-CN">
-      <body>{children}</body>
+      <body className="antialiased">{children}</body>
     </html>
   );
 }
