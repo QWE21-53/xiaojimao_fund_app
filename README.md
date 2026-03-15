@@ -96,20 +96,60 @@ fund-estimator-web/
 - **天天基金网**: https://fundgz.1234567.com.cn/js/{fundCode}.js
 - **东方财富网**: https://fundf10.eastmoney.com/
 
-## 部署
+## 数据持久化配置
 
-### Vercel (推荐)
+### 方案 1: MongoDB Atlas（推荐）
 
-1. 推送代码到 GitHub
-2. 在 Vercel 导入项目
-3. 自动部署完成
+1. **注册 MongoDB Atlas**
+   - 访问 https://www.mongodb.com/cloud/atlas
+   - 注册免费账号（512 MB 存储）
 
-### 自托管
+2. **创建集群**
+   - 选择 Free Tier（M0）
+   - 选择离你最近的区域
 
-```bash
-npm run build
-npm start
-```
+3. **获取连接字符串**
+   - 点击 "Connect" → "Connect your application"
+   - 复制连接字符串
+
+4. **配置环境变量**
+   ```bash
+   # 复制示例文件
+   cp .env.example .env.local
+   
+   # 编辑 .env.local，填入你的 MongoDB URI
+   MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/?retryWrites=true&w=majority
+   MONGODB_DB=fund-estimator
+   ```
+
+5. **重启服务器**
+   ```bash
+   npm run dev
+   ```
+
+### 方案 2: 内存存储（默认）
+
+如果不配置 `MONGODB_URI`，系统会自动使用内存存储：
+- ✅ 无需配置，开箱即用
+- ⚠️ 数据重启后丢失
+- 适合演示和测试
+
+## 部署配置
+
+### Vercel 部署
+
+1. 在 Vercel 项目设置中添加环境变量：
+   - `MONGODB_URI`: 你的 MongoDB 连接字符串
+   - `MONGODB_DB`: 数据库名称（如 `fund-estimator`）
+
+2. 重新部署项目
+
+### Zeabur 部署（国内可访问）
+
+1. 访问 https://zeabur.com
+2. 导入 GitHub 仓库
+3. 添加环境变量（同上）
+4. 部署完成
 
 ## 注意事项
 
