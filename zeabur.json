@@ -1,0 +1,17 @@
+{
+  "name": "fund-estimator-web",
+  "framework": "nextjs",
+  "buildCommand": "npm run build",
+  "startCommand": "npm start",
+  "env": {
+    "MONGODB_URI": {
+      "description": "MongoDB 连接字符串（可选，不填则使用内存存储）",
+      "required": false
+    },
+    "MONGODB_DB": {
+      "description": "MongoDB 数据库名称",
+      "default": "fund-estimator",
+      "required": false
+    }
+  }
+}
