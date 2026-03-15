@@ -72,7 +72,14 @@ export const userDB = {
       try {
         const { db } = await connectToDatabase();
         const user = await db.collection('users').findOne({ email });
-        return user as User | null;
+        if (!user) return null;
+        return {
+          id: user.id,
+          email: user.email,
+          password: user.password,
+          name: user.name,
+          createdAt: user.createdAt
+        };
       } catch (error) {
         console.error('MongoDB error, falling back to memory:', error);
       }
@@ -106,7 +113,11 @@ export const fundDB = {
         const { db } = await connectToDatabase();
         const existing = await db.collection('funds').findOne({ userId, fundCode });
         if (existing) {
-          return existing as UserFund;
+          return {
+            userId: existing.userId,
+            fundCode: existing.fundCode,
+            addedAt: existing.addedAt
+          };
         }
         await db.collection('funds').insertOne(userFund);
         return userFund;
